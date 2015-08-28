@@ -1,9 +1,9 @@
 ---
-- name: add ssh_key_identity to target
-  authorized_key: user={{ ansible_user_id }}
-    key="{{ lookup('file', ssh_identity_key) }}"
+- name: add ssh keys to target
+  authorized_key: user={{ ansible_user_id }} key="{{ lookup('file', item) }}"
+  with_fileglob:
+    - ~/.ssh/*.pub
   register: add_identity_key
-  when: ssh_identity_key is defined
 
 - name: disable empty passwords
   lineinfile: dest=/etc/ssh/sshd_config regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
