@@ -1,5 +1,6 @@
 ---
 - name: install common packages
+  become: yes
   action: apt pkg={{item}} state=installed
   with_items:
     - git
@@ -15,6 +16,7 @@
     - ranger
     - rsync
     - tmux
+    - zsh
 - name: pull dotfiles
   git: repo=https://github.com/alexwh/dotfiles.git dest=/home/{{ ansible_env["USER"] }}/dotfiles force=yes
   register: dotfiles_pulled
@@ -23,3 +25,6 @@
   register: installoutput
   changed_when: "'Creating link' in installoutput.stdout"
   when: dotfiles_pulled|success
+- name: change shell to zsh
+  become: yes
+  user: name="{{ ansible_env["USER"] }}" shell=/bin/zsh
