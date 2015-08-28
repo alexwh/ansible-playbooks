@@ -1,6 +1,6 @@
 ---
 - name: Add identity key to authorized keys on host
-  authorized_key: user={{ ansible_env["USER"] }}
+  authorized_key: user={{ ansible_user_id }}
     key="{{ lookup('file', ssh_identity_key) }}"
   register: add_identity_key
   when: ssh_identity_key is defined

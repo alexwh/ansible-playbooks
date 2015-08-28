@@ -18,13 +18,13 @@
     - tmux
     - zsh
 - name: pull dotfiles
-  git: repo=https://github.com/alexwh/dotfiles.git dest=/home/{{ ansible_env["USER"] }}/dotfiles force=yes
+  git: repo=https://github.com/alexwh/dotfiles.git dest=/home/{{ ansible_user_id }}/dotfiles force=yes
   register: dotfiles_pulled
 - name: install dotfiles
-  command: /home/{{ ansible_env["USER"] }}/dotfiles/install
+  shell: ~/dotfiles/install
   register: installoutput
   changed_when: "'Creating link' in installoutput.stdout"
   when: dotfiles_pulled|success
 - name: change shell to zsh
   become: yes
-  user: name="{{ ansible_env["USER"] }}" shell=/bin/zsh
+  user: name="{{ ansible_user_id }}" shell=/bin/zsh
