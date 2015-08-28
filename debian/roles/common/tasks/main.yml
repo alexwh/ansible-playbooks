@@ -18,7 +18,7 @@
     - tmux
     - zsh
 - name: pull dotfiles
-  git: repo=https://github.com/alexwh/dotfiles.git dest=/home/{{ ansible_user_id }}/dotfiles force=yes
+  git: repo=https://github.com/alexwh/dotfiles.git dest=/home/{{ ansible_ssh_user }}/dotfiles force=yes
   register: dotfiles_pulled
 - name: install dotfiles
   shell: ~/dotfiles/install
@@ -27,4 +27,4 @@
   when: dotfiles_pulled|success
 - name: change shell to zsh
   become: yes
-  user: name="{{ ansible_user_id }}" shell=/bin/zsh
+  user: name="{{ ansible_ssh_user }}" shell=/bin/zsh

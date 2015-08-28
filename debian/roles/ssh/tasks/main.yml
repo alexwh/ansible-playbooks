@@ -1,6 +1,6 @@
 ---
 - name: add ssh keys to target
-  authorized_key: user={{ ansible_user_id }} key="{{ lookup('file', item) }}"
+  authorized_key: user={{ ansible_ssh_user }} key="{{ lookup('file', item) }}"
   with_fileglob:
     - ~/.ssh/*.pub
   register: add_identity_key
