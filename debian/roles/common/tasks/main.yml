@@ -15,3 +15,11 @@
     - ranger
     - rsync
     - tmux
+- name: pull dotfiles
+  git: repo=https://github.com/alexwh/dotfiles.git dest=/home/{{ ansible_env["USER"] }}/dotfiles force=yes
+  register: dotfiles_pulled
+- name: install dotfiles
+  command: /home/{{ ansible_env["USER"] }}/dotfiles/install
+  register: installoutput
+  changed_when: "'Creating link' in installoutput.stdout"
+  when: dotfiles_pulled|success
