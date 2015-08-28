@@ -1,0 +1,7 @@
+---
+- name: install common packages
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - lsof
+    - vim
+    - sudo
