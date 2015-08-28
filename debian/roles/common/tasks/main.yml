@@ -2,6 +2,16 @@
 - name: install common packages
   action: apt pkg={{item}} state=installed
   with_items:
+    - git
     - lsof
     - vim
     - sudo
+    - bc
+    - curl
+    - di
+    - htop
+    - ncdu
+    - pv
+    - ranger
+    - rsync
+    - tmux
