@@ -6,14 +6,17 @@
   register: add_identity_key
 
 - name: disable empty passwords
+  become: yes
   lineinfile: dest=/etc/ssh/sshd_config regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
   notify: restart sshd
 
 - name: disable password root logins
+  become: yes
   lineinfile: dest=/etc/ssh/sshd_config regexp="^#?PermitRootLogin" line="PermitRootLogin without-password"
   notify: restart sshd
 
 - name: disable password login
+  become: yes
   lineinfile: dest=/etc/ssh/sshd_config regexp="^#?PasswordAuthentication" line="PasswordAuthentication no"
   when: add_identity_key|success and not add_identity_key|skipped
   notify: restart sshd
