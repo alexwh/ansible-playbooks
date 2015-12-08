@@ -23,7 +23,7 @@
 - name: install dotfiles
   shell: ~/dotfiles/install
   register: installoutput
-  changed_when: "'Creating link' in installoutput.stdout"
+  changed_when: "'Creating link' in installoutput.stdout or 'checked out' in installoutput.stdout"
   when: dotfiles_pulled|success
 - name: change shell to zsh
   become: yes
