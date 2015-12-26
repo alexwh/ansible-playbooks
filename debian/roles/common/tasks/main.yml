@@ -6,7 +6,6 @@
     - git
     - lsof
     - vim
-    - sudo
     - bc
     - curl
     - di
@@ -17,6 +16,7 @@
     - rsync
     - tmux
     - zsh
+    - aptitude
 - name: pull dotfiles
   git: repo=https://github.com/alexwh/dotfiles.git dest=/home/{{ ansible_ssh_user }}/dotfiles force=yes
   register: dotfiles_pulled
