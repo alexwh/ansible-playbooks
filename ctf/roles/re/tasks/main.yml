@@ -1,0 +1,42 @@
+---
+- name: enable 32bit libs (debian)
+  become: yes
+  action: shell executable=bash [[ $(dpkg --print-foreign-architectures) =~ "i386" ]] || (dpkg --add-architecture i386 && echo enabled)
+  register: archoutput
+  changed_when: '"enabled" in archoutput.stdout'
+  when: ansible_distribution == "Debian" and ansible_architecture == "x86_64"
+
+- name: install 32bit libs (debian)
+  become: yes
+  action: apt name={{item}} state=present update_cache=yes
+  with_items:
+    - libc6:i386
+    - libncurses5:i386
+    - libstdc++6:i386
+    - libgcc1:i386
+  when: ansible_distribution == "Debian" and ansible_architecture == "x86_64"
+
+- name: install re packages
+  become: yes
+  action: package pkg={{item}} state=installed
+  with_items:
+    - gdb
+    - gdb-multiarch
+    - gcc
+    - gcc-multilib
+    - radare2
+    - python-pip
+    - python3-pip
+
+- name: install binjitsu
+  become: yes
+  action: pip name="git+https://github.com/binjitsu/binjitsu.git" state=latest editable=no
+
+- name: clone pwndbg
+  action: git repo=https://github.com/zachriggle/pwndbg.git dest=~/pwndbg
+
+- name: add pwndbg to gdbinit
+  action: copy content="source ~/pwndbg/gdbinit.py" dest=~/.gdbinit
+
+- name: clone ctf-tools
+  action: git repo=https://github.com/zardus/ctf-tools.git dest=~/ctf-tools

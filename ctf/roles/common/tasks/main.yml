@@ -1,0 +1,21 @@
+---
+- name: install common packages
+  become: yes
+  action: package pkg={{item}} state=installed
+  with_items:
+    - git
+    - lsof
+    - vim
+    - bc
+    - curl
+    - wget
+    - tmux
+    - unzip
+    - build-essential
+    - libtool
+    - g++
+    - gcc
+    - texinfo
+    - automake
+    - autoconf
+    - python-dev
