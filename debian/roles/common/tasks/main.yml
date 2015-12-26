@@ -23,7 +23,7 @@
 - name: install dotfiles
   shell: ~/dotfiles/install
   register: installoutput
-  changed_when: "'Creating link' in installoutput.stdout"
+  changed_when: "'Creating link' in installoutput.stdout or 'checked out' in installoutput.stdout"
   when: dotfiles_pulled|success
 - name: copy zshrc_local
   copy: src=zshrc_local dest=~/.zshrc_local force=no
