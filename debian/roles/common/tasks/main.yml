@@ -30,3 +30,6 @@
 - name: change shell to zsh
   become: yes
   user: name="{{ ansible_ssh_user }}" shell=/bin/zsh
+- name: remove motd
+  become: yes
+  copy: content="" dest=/etc/motd force=yes
