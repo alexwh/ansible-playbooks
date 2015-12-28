@@ -19,3 +19,4 @@
     - automake
     - autoconf
     - python-dev
+    - dtrx
