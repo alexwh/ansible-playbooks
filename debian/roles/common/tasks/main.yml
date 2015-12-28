@@ -8,6 +8,7 @@
     - vim
     - bc
     - curl
+    - wget
     - di
     - htop
     - ncdu
