@@ -27,6 +27,7 @@
     - radare2
     - python-pip
     - python3-pip
+    - sshpass
 
 - name: install binjitsu
   become: yes
