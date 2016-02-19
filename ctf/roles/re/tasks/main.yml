@@ -28,6 +28,8 @@
     - python-pip
     - python3-pip
     - sshpass
+    - strace
+    - ltrace
 
 - name: install binjitsu
   become: yes
